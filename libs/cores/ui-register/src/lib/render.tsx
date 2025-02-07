@@ -26,7 +26,7 @@ export const RenderComponent: React.FC<RenderProps> = ({
     ...config,
     style: {
       ...options?.styles?.defaultStyle,
-      ...options?.styles?.variants?.[config?.variant || 'default'],
+      ...options?.styles?.variant?.[config?.variant || 'default'],
       ...config?.style,
     },
     size: config?.size || options?.attributes?.size || 'default',

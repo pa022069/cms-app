@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { settings } from './setting';
 
 type TButtonProps = {
   size?: 'small' | 'medium' | 'large';
@@ -8,56 +9,17 @@ type TButtonProps = {
   children: React.ReactNode;
 };
 
-const buttonSize = {
-  small: css`
-    font-size: 12px;
-    padding: 4px 8px;
-  `,
-  medium: css`
-    font-size: 16px;
-    padding: 8px 16px;
-  `,
-  large: css`
-    font-size: 20px;
-    padding: 12px 24px;
-  `,
-};
-
-const buttonVariants = {
-  primary: css`
-    background-color: #007bff;
-    color: white;
-    &:hover {
-      background-color: #0056b3;
-    }
-  `,
-  secondary: css`
-    background-color: #6c757d;
-    color: white;
-    &:hover {
-      background-color: #5a6268;
-    }
-  `,
-  danger: css`
-    background-color: #dc3545;
-    color: white;
-    &:hover {
-      background-color: #c82333;
-    }
-  `,
-};
-
 const StyledButton = styled.button<{
-  variant: keyof typeof buttonVariants;
-  size: keyof typeof buttonSize;
+  variant: keyof typeof settings.variant;
+  size: keyof typeof settings.size;
 }>`
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  ${(props) => buttonVariants[props.variant]}
-  ${(props) => buttonSize[props.size]}
+  ${(props) => settings.variant[props.variant]}
+  ${(props) => settings.size[props.size]}
 `;
 
 export const Button = ({

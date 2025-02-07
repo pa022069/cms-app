@@ -1,7 +1,18 @@
 type ComponentConfig = {
   name: string;
   component: React.ComponentType<any>;
-  options?: any;
+  options: {
+    schema: {
+      properties: Record<
+        string,
+        {
+          type: string;
+          enum: string[];
+          default: string;
+        }
+      >;
+    };
+  };
 };
 
 class ComponentRegistry {
