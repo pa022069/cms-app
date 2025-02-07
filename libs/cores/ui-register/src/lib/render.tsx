@@ -21,16 +21,14 @@ export const RenderComponent: React.FC<RenderProps> = ({
     return <div>未找到元件 {name}</div>;
   }
 
-  const { component: Component, options } = componentConfig;
+  const { component: Component } = componentConfig;
   const mergedProps = {
     ...config,
     style: {
-      ...options?.styles?.defaultStyle,
-      ...options?.styles?.variant?.[config?.variant || 'default'],
       ...config?.style,
     },
-    size: config?.size || options?.attributes?.size || 'default',
-    options: config?.options || options?.attributes?.options || [],
+    size: config?.size || 'default',
+    options: config?.options || [],
   };
 
   return <Component {...mergedProps} />;
