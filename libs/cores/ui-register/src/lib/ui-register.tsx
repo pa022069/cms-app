@@ -3,12 +3,11 @@ type ComponentConfig = {
   component: React.ComponentType<any>;
   options: {
     schema: {
-      properties: Record<
+      properties?: Record<
         string,
         {
           type: string;
           enum: string[];
-          default: string;
         }
       >;
     };
