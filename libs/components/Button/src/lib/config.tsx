@@ -5,7 +5,7 @@ const getEnums = (key: string) => {
   return {
     [key]: {
       type: 'string',
-      enum: !settings[key] ? [] : [...Object.keys(settings[key])].sort(),
+      enum: !settings[key] ? [] : Object.keys(settings[key]),
     },
   };
 };
