@@ -1,7 +1,7 @@
 import { options } from './options';
 import Button from './Button';
 
-const ButtonConfig = {
+export const ButtonConfig = {
   name: 'button',
   component: Button,
   options: {
@@ -23,5 +23,3 @@ const ButtonConfig = {
     },
   },
 };
-
-export default ButtonConfig;

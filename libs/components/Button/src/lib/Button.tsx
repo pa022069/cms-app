@@ -60,7 +60,7 @@ const StyledButton = styled.button<{
   ${(props) => buttonSize[props.size]}
 `;
 
-const Button = ({
+export const Button = ({
   size = 'medium',
   variant = 'primary',
   style,
