@@ -18,6 +18,7 @@ export function App() {
             variant: 'danger',
             size: 'large',
             children: 'Click me',
+            className: 'text-black',
             onClick: () => {
               alert('Button clicked');
             },

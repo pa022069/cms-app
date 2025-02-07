@@ -25,14 +25,12 @@ const StyledButton = styled.button<{
 export const Button = ({
   size = 'medium',
   variant = 'primary',
-  style,
-  className,
   children,
   ...props
 }: TButtonProps) => {
   return (
     <div>
-      <StyledButton variant={variant} size={size} style={style} {...props}>
+      <StyledButton variant={variant} size={size} {...props}>
         {children}
       </StyledButton>
     </div>

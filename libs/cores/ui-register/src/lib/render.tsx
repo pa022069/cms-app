@@ -22,14 +22,6 @@ export const RenderComponent: React.FC<RenderProps> = ({
   }
 
   const { component: Component } = componentConfig;
-  const mergedProps = {
-    ...config,
-    style: {
-      ...config?.style,
-    },
-    size: config?.size || 'default',
-    options: config?.options || [],
-  };
 
-  return <Component {...mergedProps} />;
+  return <Component {...config} />;
 };
