@@ -2,6 +2,7 @@ import NxWelcome from './nx-welcome';
 import { Button } from '@libs-components/Button';
 import { RenderComponent, registry } from '@libs-cores/ui-register';
 import { useComponentStore } from '@libs-cores/ui-register';
+import '../helpers/treeControl';
 
 export function EditController() {
   const { id, name, props } = useComponentStore();
