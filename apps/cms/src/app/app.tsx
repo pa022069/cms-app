@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState, memo } from 'react';
+import { useMemo } from 'react';
 import NxWelcome from './nx-welcome';
 import { Button } from '@libs-components/Button';
-import { RenderComponent, registry } from '@libs-cores/ui-register';
-import { useComponentStore } from '@libs-cores/ui-register';
+import StructureRender from '../components/StructureRender';
+import EditController from '../components/EditController';
 import { useLayerControl, TComponentType } from '../hooks/useLayerControl';
 
 const mockData: TComponentType[] = [
@@ -78,78 +78,31 @@ const mockData: TComponentType[] = [
   },
 ];
 
-function EditController() {
-  const { target, updateProps } = useComponentStore();
-  const { id, name, config } = target;
-
-  if (!id || !name) return null;
-  const schema = registry.getComponent(name)?.options?.schema;
+function Structure({ editable }: { editable: boolean }) {
+  const { buildTree, flatten } = useLayerControl(mockData);
+  const pageTree = useMemo(() => buildTree(flatten), [flatten, buildTree]);
 
   return (
-    <div>
-      {Object.entries(schema?.properties || {}).map(([key, value]: any) => (
-        <div key={key}>
-          <label>{key}：</label>
-          <select
-            value={config ? config[key] : null}
-            onChange={(e) => {
-              updateProps({ [key]: e.target.value });
-            }}
-          >
-            {value.enum.map((option: any) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
-    </div>
+    <>
+      {editable && <EditController />}
+      <StructureRender
+        pageData={editable ? pageTree : mockData}
+        editable={editable}
+      />
+    </>
   );
 }
 
-const RenderTree = ({ data }: { data: any }) => {
-  if (!data) return null;
-
-  return (
-    <RenderComponent
-      key={data.id}
-      id={data.id}
-      name={data.name}
-      config={data.config}
-      editable
-    >
-      {Array.isArray(data.children)
-        ? data.children.map((child: any) => (
-            <RenderTree key={child.id} data={child} />
-          ))
-        : data.children}
-    </RenderComponent>
-  );
-};
-
-const Page = memo(({ pageData }: any) => {
-  return (
-    <>
-      {pageData.map((child: any) => (
-        <RenderTree key={child.id} data={child} />
-      ))}
-    </>
-  );
-});
-
 export function App() {
-  const { buildTree, flatten } = useLayerControl(mockData);
+  const isEditMode = true;
 
-  const pageTree = useMemo(() => buildTree(flatten), [flatten, buildTree]);
   return (
     <div className="flex flex-col gap-8">
       <div className="flex gap-4">
         <Button variant="primary" size="small">
           Click me
         </Button>
-        <EditController />
-        <Page pageData={pageTree} />
+        <Structure editable={isEditMode} />
       </div>
       <NxWelcome title="cms" />
     </div>

@@ -5,7 +5,7 @@ type TConfigType = {
   variant?: string;
   style?: React.CSSProperties;
   size?: string;
-  options?: any[];
+  options?: { label: string; value: string | number | boolean }[];
   [key: string]: any;
 };
 

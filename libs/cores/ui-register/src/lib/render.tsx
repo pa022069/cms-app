@@ -3,7 +3,7 @@ import { registry } from './ui-register';
 import { useComponentStore } from '../store/editStore';
 import { v4 as uuid } from 'uuid';
 
-type RenderProps = {
+export type TRenderProps = {
   id?: string;
   name: string;
   config?: {
@@ -17,13 +17,13 @@ type RenderProps = {
   children?: React.ReactNode;
 };
 
-export const RenderComponent: React.FC<RenderProps> = ({
+export const RenderComponent: React.FC<TRenderProps> = ({
   id = uuid(),
   name,
   config,
   editable,
   children,
-}: RenderProps) => {
+}: TRenderProps) => {
   const { setSelectedComponent } = useComponentStore();
   const componentConfig = registry.getComponent(name);
 
