@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@libs-components/Button": ["libs/components/Button/src/index.ts"],
+      "@libs-components/Box": ["libs/components/Box/src/index.ts"],
       "@libs-cores/ui-register": ["libs/cores/ui-register/src/index.ts"]
     }
   },

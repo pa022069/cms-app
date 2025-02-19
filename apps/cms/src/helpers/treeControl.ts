@@ -114,6 +114,10 @@ class treeControl {
     return result;
   }
 
+  removeDuplicate(arr: string[]) {
+    return Array.from(new Set(arr));
+  }
+
   buildTree(state: TFlattenTree, rootId = 'root') {
     function createNode(componentId: string): TComponentType<TComponentType> {
       const component = state.components[componentId];
@@ -126,10 +130,6 @@ class treeControl {
     }
 
     return [createNode(rootId)];
-  }
-
-  removeDuplicate(arr: string[]) {
-    return Array.from(new Set(arr));
   }
 
   addComponent(
@@ -160,6 +160,29 @@ class treeControl {
       hierarchy: {
         ...state.hierarchy,
         [newId]: parentId,
+      },
+    };
+
+    this.setFlatten(result);
+
+    return result;
+  }
+
+  editComponent(
+    state: TFlattenTree,
+    componentId: string,
+    newComponent: TComponentType
+  ) {
+    if (!state.components[componentId]) {
+      console.error('Component ID not found');
+      return state;
+    }
+
+    const result = {
+      ...state,
+      components: {
+        ...state.components,
+        [componentId]: newComponent,
       },
     };
 
@@ -293,6 +316,18 @@ const addComponent2 = tree.addComponent(
   '2'
 );
 
+const editComponent = tree.editComponent(tree.getFlatten, '10', {
+  id: '10',
+  name: 'core/button',
+  config: {
+    variant: 'primary',
+    size: 'small',
+    children: 'Click me 10/edited',
+  },
+  children: [],
+});
+
 console.log('add', addComponent);
 console.log('add2', addComponent2);
+console.log('edit', editComponent);
 console.log('flatten', tree.getFlatten);

@@ -14,6 +14,7 @@ type RenderProps = {
     [key: string]: any;
   };
   editable?: boolean;
+  children?: React.ReactNode;
 };
 
 export const RenderComponent: React.FC<RenderProps> = ({
@@ -21,6 +22,7 @@ export const RenderComponent: React.FC<RenderProps> = ({
   name,
   config,
   editable,
+  children,
 }: RenderProps) => {
   const { setSelectedComponent } = useComponentStore();
   const componentConfig = registry.getComponent(name);
@@ -34,14 +36,17 @@ export const RenderComponent: React.FC<RenderProps> = ({
   if (editable) {
     return (
       <Component
+        key={id}
         id={id}
         {...config}
-        onClick={() => {
+        onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+          event.stopPropagation();
           setSelectedComponent(id, name, config || {});
         }}
+        children={children}
       />
     );
   }
 
-  return <Component {...config} />;
+  return <Component key={id} {...config} children={children} />;
 };
