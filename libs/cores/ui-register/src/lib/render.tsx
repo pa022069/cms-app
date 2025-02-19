@@ -41,7 +41,11 @@ export const RenderComponent: React.FC<RenderProps> = ({
         {...config}
         onClick={(event: React.MouseEvent<HTMLDivElement>) => {
           event.stopPropagation();
-          setSelectedComponent(id, name, config || {});
+          setSelectedComponent({
+            id,
+            name,
+            config,
+          });
         }}
         children={children}
       />

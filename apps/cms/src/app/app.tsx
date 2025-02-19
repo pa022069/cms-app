@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState, memo } from 'react';
 import NxWelcome from './nx-welcome';
 import { Button } from '@libs-components/Button';
 import { RenderComponent, registry } from '@libs-cores/ui-register';
@@ -79,12 +79,8 @@ const mockData: TComponentType[] = [
 ];
 
 function EditController() {
-  const { id, name, props, updateProps } = useComponentStore();
-  const [values, setValues] = useState<Record<string, any>>({});
-
-  useEffect(() => {
-    setValues(props);
-  }, [id, name, props]);
+  const { target, updateProps } = useComponentStore();
+  const { id, name, config } = target;
 
   if (!id || !name) return null;
   const schema = registry.getComponent(name)?.options?.schema;
@@ -95,9 +91,8 @@ function EditController() {
         <div key={key}>
           <label>{key}：</label>
           <select
-            value={values[key]}
+            value={config ? config[key] : null}
             onChange={(e) => {
-              setValues({ ...values, [key]: e.target.value });
               updateProps({ [key]: e.target.value });
             }}
           >
@@ -119,6 +114,7 @@ const RenderTree = ({ data }: { data: any }) => {
   return (
     <RenderComponent
       key={data.id}
+      id={data.id}
       name={data.name}
       config={data.config}
       editable
@@ -132,8 +128,20 @@ const RenderTree = ({ data }: { data: any }) => {
   );
 };
 
+const Page = memo(({ pageData }: any) => {
+  return (
+    <>
+      {pageData.map((child: any) => (
+        <RenderTree key={child.id} data={child} />
+      ))}
+    </>
+  );
+});
+
 export function App() {
   const { buildTree, flatten } = useLayerControl(mockData);
+
+  const pageTree = useMemo(() => buildTree(flatten), [flatten, buildTree]);
   return (
     <div className="flex flex-col gap-8">
       <div className="flex gap-4">
@@ -141,9 +149,7 @@ export function App() {
           Click me
         </Button>
         <EditController />
-        {buildTree(flatten).map((data) => (
-          <RenderTree key={data.id} data={data} />
-        ))}
+        <Page pageData={pageTree} />
       </div>
       <NxWelcome title="cms" />
     </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useComponentStore } from '@libs-cores/ui-register';
 
 type TConfigType = {
   variant?: string;
@@ -21,10 +22,19 @@ type TFlattenTree = {
 };
 
 export const useLayerControl = (initData: TComponentType[]) => {
+  const { target } = useComponentStore();
   const [flatten, setFlatten] = useState<TFlattenTree>({
     components: {},
     hierarchy: {},
   });
+
+  useEffect(() => {
+    if (!target.id || !target.config) return;
+    editComponent(flatten, target.id, {
+      ...flatten.components[target.id],
+      config: target.config,
+    });
+  }, [target]);
 
   const flattenTree = useCallback(
     (
@@ -63,9 +73,7 @@ export const useLayerControl = (initData: TComponentType[]) => {
   };
 
   const buildTree = (state: TFlattenTree, rootId = 'root') => {
-    function createNode(
-      componentId: string
-    ): TComponentType | Record<string, any> {
+    function createNode(componentId: string): TComponentType | null {
       const component = state.components[componentId];
       if (!component) return null;
       return {
