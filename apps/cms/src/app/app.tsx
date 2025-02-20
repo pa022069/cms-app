@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import NxWelcome from './nx-welcome';
 import { Button } from '@libs-components/Button';
 import StructureRender from '../components/StructureRender';
 import EditController from '../components/EditController';
@@ -82,14 +81,30 @@ function Structure({ editable }: { editable: boolean }) {
   const { buildTree, flatten } = useLayerControl(mockData);
   const pageTree = useMemo(() => buildTree(flatten), [flatten, buildTree]);
 
+  if (!editable) {
+    return <StructureRender pageData={mockData} editable={editable} />;
+  }
   return (
-    <>
-      {editable && <EditController />}
-      <StructureRender
-        pageData={editable ? pageTree : mockData}
-        editable={editable}
-      />
-    </>
+    <div className="flex flex-col w-full">
+      <div className="p-2 flex justify-end">
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={() => console.log(pageTree)}
+        >
+          Save
+        </Button>
+      </div>
+      <div className="flex">
+        <div className="flex-1">
+          <StructureRender
+            pageData={editable ? pageTree : mockData}
+            editable={editable}
+          />
+        </div>
+        {editable && <EditController className="px-4 py-2 flex-[0_0_200px]" />}
+      </div>
+    </div>
   );
 }
 
@@ -97,14 +112,8 @@ export function App() {
   const isEditMode = true;
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex gap-4">
-        <Button variant="primary" size="small">
-          Click me
-        </Button>
-        <Structure editable={isEditMode} />
-      </div>
-      <NxWelcome title="cms" />
+    <div className="flex gap-4">
+      <Structure editable={isEditMode} />
     </div>
   );
 }

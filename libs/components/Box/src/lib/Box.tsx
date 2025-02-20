@@ -13,7 +13,7 @@ type TBoxProps = {
 const StyledBox = styled.div<{
   variant: keyof typeof settings.variant;
   size: keyof typeof settings.size;
-  direction: keyof typeof settings.direction;
+  direction: 'row' | 'column';
 }>`
   display: flex;
   ${(props) => settings.direction[props.direction]}

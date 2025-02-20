@@ -10,15 +10,20 @@ import { useComponentStore } from '@libs-cores/ui-register';
 
 type TKeyValue = [string, { enum: string[] }];
 
-const EditController = () => {
+type TEditControllerProps = {
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+const EditController = ({ className, style }: TEditControllerProps) => {
   const { target, updateProps } = useComponentStore();
   const { id, name, config } = target;
 
-  if (!id || !name) return null;
+  if (!id || !name) return <div className={className}>選擇元件進行編輯</div>;
   const schema = registry.getComponent(name)?.options?.schema;
 
   return (
-    <div>
+    <div className={className} style={style}>
       {Object.entries(schema?.properties || {}).map(
         ([key, value]: TKeyValue) => (
           <div key={key}>

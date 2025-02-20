@@ -7,6 +7,8 @@ type TButtonProps = {
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
+  onClick?: () => void;
+  [key: string]: any;
 };
 
 const StyledButton = styled.button<{
