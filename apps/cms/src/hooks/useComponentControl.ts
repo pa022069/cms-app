@@ -28,7 +28,7 @@ export const useComponentControl = (control: any) => {
   };
 
   const moveComponentInStructure = () => {
-    moveComponent(flatten, '1', '3');
+    moveComponent(flatten, '1', '3', 1);
   };
 
   return {

@@ -10,6 +10,10 @@ export type TComponentType<
 };
 
 export type TFlattenTree = {
-  components: Record<string, TComponentType>;
-  hierarchy: Record<string, string | null>;
+  components: {
+    [key: string]: TComponentType;
+  };
+  hierarchy: {
+    [key: string]: string | null;
+  };
 };

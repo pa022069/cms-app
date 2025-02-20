@@ -141,23 +141,29 @@ export const useLayerControl = (initData: TComponentType[]) => {
   const moveComponent = (
     state: TFlattenTree,
     componentId: string,
-    newParentId: string
+    newParentId: string,
+    index?: number
   ) => {
     const oldParentId = state.hierarchy[componentId];
 
-    if (!oldParentId || !newParentId) return state;
+    if (!oldParentId || !newParentId || oldParentId === newParentId)
+      return state;
+
     // 從舊的父元件移除
-    const oldParentChildren = removeDuplicate(
-      (state.components[oldParentId].children as string[]).filter(
-        (id) => id !== componentId
-      )
-    );
+    const oldParentChildren = (
+      state.components[oldParentId].children as string[]
+    ).filter((id) => id !== componentId);
 
     // 新增到新的父元件
-    const newParentChildren = removeDuplicate([
+    const newParentChildren = [
       ...(state.components[newParentId].children as string[]),
-      componentId,
-    ]);
+    ];
+    const insertIndex = index ?? newParentChildren.length;
+
+    // 避免重複添加
+    if (!newParentChildren.includes(componentId)) {
+      newParentChildren.splice(insertIndex, 0, componentId);
+    }
 
     const result = {
       ...state,
@@ -165,11 +171,11 @@ export const useLayerControl = (initData: TComponentType[]) => {
         ...state.components,
         [oldParentId]: {
           ...state.components[oldParentId],
-          children: removeDuplicate(oldParentChildren),
+          children: oldParentChildren,
         },
         [newParentId]: {
           ...state.components[newParentId],
-          children: removeDuplicate(newParentChildren),
+          children: newParentChildren,
         },
       },
       hierarchy: {
