@@ -10,8 +10,8 @@ const getEnums = (key: string) => {
   };
 };
 
-export const ButtonConfig = {
-  name: 'core/button',
+export const buttonConfig = (name?: string) => ({
+  name: name || 'core/button',
   component: Button,
   options: {
     schema: {
@@ -22,4 +22,4 @@ export const ButtonConfig = {
       },
     },
   },
-};
+});

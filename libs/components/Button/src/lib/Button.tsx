@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { settings } from './setting';
 
-type TButtonProps = {
+export type TButtonConfig = {
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'secondary' | 'danger';
   className?: string;
   style?: React.CSSProperties;
-  children: React.ReactNode;
   onClick?: () => void;
   [key: string]: any;
 };
@@ -29,7 +28,7 @@ export const Button = ({
   variant = 'primary',
   children,
   ...props
-}: TButtonProps) => {
+}: TButtonConfig) => {
   return (
     <div>
       <StyledButton variant={variant} size={size} {...props}>

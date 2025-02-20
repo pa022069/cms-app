@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { settings } from './setting';
 
-type TBoxProps = {
+export type TBoxConfig = {
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'secondary' | 'danger';
   direction?: 'row' | 'column';
@@ -27,7 +27,7 @@ export const Box = ({
   direction = 'row',
   children,
   ...props
-}: TBoxProps) => {
+}: TBoxConfig) => {
   return (
     <div>
       <StyledBox variant={variant} size={size} direction={direction} {...props}>

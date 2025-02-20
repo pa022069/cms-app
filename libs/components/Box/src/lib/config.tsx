@@ -10,8 +10,8 @@ const getEnums = (key: string) => {
   };
 };
 
-export const BoxConfig = {
-  name: 'core/box',
+export const boxConfig = (name?: string) => ({
+  name: name || 'core/box',
   component: Box,
   options: {
     schema: {
@@ -23,4 +23,4 @@ export const BoxConfig = {
       },
     },
   },
-};
+});

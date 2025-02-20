@@ -1,96 +1,47 @@
-import { useMemo } from 'react';
 import { Button } from '@libs-components/Button';
 import StructureRender from '../components/StructureRender';
 import EditController from '../components/EditController';
-import { useLayerControl, TComponentType } from '../hooks/useLayerControl';
+import { useLayerControl } from '../hooks/useLayerControl';
+import { useComponentControl } from '../hooks/useComponentControl';
+import { TComponentType } from '../types/layer-control';
+import { mockData } from '../mock/pageLayer';
 
-const mockData: TComponentType[] = [
-  {
-    id: 'root',
-    name: 'core/box',
-    config: {
-      direction: 'column',
-    },
-    children: [
-      {
-        id: '1',
-        name: 'core/button',
-        config: {
-          variant: 'danger',
-          size: 'large',
-          className: 'text-black',
-          onClick: () => {
-            alert('Button clicked');
-          },
-        },
-        children: 'Click Me',
-      },
-      {
-        id: '2',
-        name: 'core/button',
-        config: {
-          variant: 'secondary',
-          size: 'medium',
-          className: 'text-black',
-          onClick: () => {
-            alert('Button clicked');
-          },
-        },
-        children: 'Click Me',
-      },
-      {
-        id: '3',
-        name: 'core/box',
-        config: {
-          direction: 'row',
-        },
-        children: [
-          {
-            id: '3-1',
-            name: 'core/button',
-            config: {
-              variant: 'danger',
-              size: 'large',
-              className: 'text-black',
-              onClick: () => {
-                alert('Button clicked');
-              },
-            },
-            children: 'Click Me',
-          },
-          {
-            id: '3-2',
-            name: 'core/button',
-            config: {
-              variant: 'secondary',
-              size: 'medium',
-              className: 'text-black',
-              onClick: () => {
-                alert('Button clicked');
-              },
-            },
-            children: 'Click Me',
-          },
-        ],
-      },
-    ],
-  },
-];
-
-function Structure({ editable }: { editable: boolean }) {
-  const { buildTree, flatten } = useLayerControl(mockData);
-  const pageTree = useMemo(() => buildTree(flatten), [flatten, buildTree]);
+function Structure({
+  data,
+  editable,
+}: {
+  data: TComponentType[];
+  editable: boolean;
+}) {
+  const control = useLayerControl(data);
+  const { addCOmponentInStructure, moveComponentInStructure } =
+    useComponentControl(control);
+  const { treeData } = control;
 
   if (!editable) {
-    return <StructureRender pageData={mockData} editable={editable} />;
+    return <StructureRender pageData={data} />;
   }
   return (
     <div className="flex flex-col w-full">
-      <div className="p-2 flex justify-end">
+      <div className="p-2 flex justify-end gap-4">
         <Button
           variant="secondary"
           size="small"
-          onClick={() => console.log(pageTree)}
+          onClick={moveComponentInStructure}
+        >
+          Move
+        </Button>
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={addCOmponentInStructure}
+        >
+          Add
+        </Button>
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={() => console.log(treeData)}
         >
           Save
         </Button>
@@ -98,7 +49,7 @@ function Structure({ editable }: { editable: boolean }) {
       <div className="flex">
         <div className="flex-1">
           <StructureRender
-            pageData={editable ? pageTree : mockData}
+            pageData={editable ? treeData : mockData}
             editable={editable}
           />
         </div>
@@ -108,12 +59,12 @@ function Structure({ editable }: { editable: boolean }) {
   );
 }
 
-export function App() {
+function App() {
   const isEditMode = true;
 
   return (
     <div className="flex gap-4">
-      <Structure editable={isEditMode} />
+      <Structure data={mockData} editable={isEditMode} />
     </div>
   );
 }

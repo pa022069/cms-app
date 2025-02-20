@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 export type TRenderProps = {
   id?: string;
   name: string;
-  config?: {
+  config: {
     variant?: string;
     style?: React.CSSProperties;
     size?: string;
@@ -14,7 +14,7 @@ export type TRenderProps = {
     [key: string]: any;
   };
   editable?: boolean;
-  children?: React.ReactNode;
+  children: string | any[];
 };
 
 export const RenderComponent: React.FC<TRenderProps> = ({
@@ -45,6 +45,7 @@ export const RenderComponent: React.FC<TRenderProps> = ({
             id,
             name,
             config,
+            children,
           });
         }}
         children={children}

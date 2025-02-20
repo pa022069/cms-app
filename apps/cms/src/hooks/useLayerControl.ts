@@ -1,28 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useComponentStore } from '@libs-cores/ui-register';
-
-type TConfigType = {
-  variant?: string;
-  style?: React.CSSProperties;
-  size?: string;
-  options?: { label: string; value: string | number | boolean }[];
-  [key: string]: any;
-};
-
-export type TComponentType = {
-  id: string;
-  name: string;
-  config: TConfigType;
-  children: TComponentType[] | unknown;
-};
-
-type TFlattenTree = {
-  components: Record<string, TComponentType>;
-  hierarchy: Record<string, string | null>;
-};
+import { ComponentConfigMap } from '../types/components-library';
+import { TComponentType, TFlattenTree } from '../types/layer-control';
 
 export const useLayerControl = (initData: TComponentType[]) => {
   const { target } = useComponentStore();
+  const [treeData, setTreeData] = useState<(TComponentType | null)[]>(initData);
   const [flatten, setFlatten] = useState<TFlattenTree>({
     components: {},
     hierarchy: {},
@@ -35,6 +18,12 @@ export const useLayerControl = (initData: TComponentType[]) => {
       config: target.config,
     });
   }, [target]);
+
+  useEffect(() => {
+    if (Object.keys(flatten.components).length === 0) return;
+    const tranformData = buildTree(flatten);
+    setTreeData(tranformData);
+  }, [flatten]);
 
   const flattenTree = useCallback(
     (
@@ -90,9 +79,9 @@ export const useLayerControl = (initData: TComponentType[]) => {
     return [createNode(rootId)];
   };
 
-  const addComponent = (
+  const addComponent = <N extends keyof ComponentConfigMap>(
     state: TFlattenTree,
-    newComponent: TComponentType,
+    newComponent: TComponentType<N>,
     parentId: string
   ) => {
     const newId = newComponent.id;
@@ -250,10 +239,41 @@ export const useLayerControl = (initData: TComponentType[]) => {
   };
 
   useEffect(() => {
+    function flattenTree(
+      treeData = initData || [],
+      result: TFlattenTree = { components: {}, hierarchy: {} },
+      parentId: string | null = null
+    ) {
+      treeData.forEach((tree) => {
+        const { id, name, config, children } = tree;
+
+        if (!id || !name) return;
+
+        result.components[id] = {
+          id,
+          name,
+          config,
+          children: Array.isArray(children)
+            ? (children as TComponentType[]).map((child) => child.id)
+            : children,
+        };
+
+        result.hierarchy[id] = parentId;
+
+        if (Array.isArray(children) && children.length) {
+          flattenTree(children, result, id);
+        }
+      });
+
+      return result;
+    }
+
     setFlatten(flattenTree());
   }, [initData]);
 
   return {
+    target,
+    treeData,
     flatten,
     addComponent,
     editComponent,
