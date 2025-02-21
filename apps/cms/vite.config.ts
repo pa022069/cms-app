@@ -3,6 +3,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import path from 'path';
+
+function resolve(str: string) {
+  return path.resolve(__dirname, str);
+}
 
 export default defineConfig({
   root: __dirname,
@@ -20,6 +25,16 @@ export default defineConfig({
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
+  base: '/',
+  resolve: {
+    alias: {
+      components: resolve('src/components'),
+      hooks: resolve('src/hooks'),
+      'custom-types': resolve('src/types'),
+      enums: resolve('src/enums'),
+      mock: resolve('src/mock'),
+    },
+  },
   build: {
     outDir: '../../dist/apps/cms',
     emptyOutDir: true,

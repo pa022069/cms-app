@@ -7,7 +7,15 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
       "vite/client"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "hooks/*": ["src/hooks/*"],
+      "custom-types/*": ["src/types/*"],
+      "enums/*": ["src/enums/*"],
+      "mock/*": ["src/mock/*"],
+    }
   },
   "exclude": [
     "src/**/*.spec.ts",

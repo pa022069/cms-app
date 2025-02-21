@@ -1,10 +1,9 @@
-import { Button } from '@libs-components/Button';
-import StructureRender from '../../components/StructureRender';
-import EditController from '../../components/EditController';
-import { useLayerControl } from '../../hooks/useLayerControl';
-import { useComponentControl } from '../../hooks/useComponentControl';
-import { TComponentType } from '../../types/layer-control';
-import { mockData } from '../../mock/pageLayer';
+import StructureRender from 'components/StructureRender';
+import EditController from 'components/EditController';
+import { useLayerControl } from 'hooks/useLayerControl';
+import { useComponentControl } from 'hooks/useComponentControl';
+import { TComponentType } from 'custom-types/layer-control';
+import { mockData } from 'mock/pageLayer';
 import NavControl from './components/Nav/NavControl';
 
 function Structure({
