@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import App from './app/app';
+import Index from './app/Index';
 import { registry } from '@libs-cores/ui-register';
 import { buttonConfig } from '@libs-components/Button';
 import { boxConfig } from '@libs-components/Box';
@@ -15,6 +15,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <App />
+    <Index />
   </StrictMode>
 );
