@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { settings } from './setting';
+import { SIZE, VARIANT } from './enums';
 
 export type TButtonConfig = {
-  size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'danger';
+  size?: SIZE;
+  variant?: VARIANT;
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
@@ -11,8 +12,8 @@ export type TButtonConfig = {
 };
 
 const StyledButton = styled.button<{
-  variant: keyof typeof settings.variant;
-  size: keyof typeof settings.size;
+  variant: VARIANT;
+  size: SIZE;
 }>`
   padding: 8px 16px;
   border: none;
@@ -24,8 +25,8 @@ const StyledButton = styled.button<{
 `;
 
 export const Button = ({
-  size = 'medium',
-  variant = 'primary',
+  size = SIZE.MEDIUM,
+  variant = VARIANT.PRIMARY,
   children,
   ...props
 }: TButtonConfig) => {

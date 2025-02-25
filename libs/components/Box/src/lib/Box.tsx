@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import { settings } from './setting';
+import { SIZE, VARIANT, DIRECTION } from './enums';
 
 export type TBoxConfig = {
-  size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'danger';
-  direction?: 'row' | 'column';
+  size?: SIZE;
+  variant?: VARIANT;
+  direction?: DIRECTION;
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
 };
 
 const StyledBox = styled.div<{
-  variant: keyof typeof settings.variant;
-  size: keyof typeof settings.size;
-  direction: 'row' | 'column';
+  variant: VARIANT;
+  size: SIZE;
+  direction: DIRECTION;
 }>`
   display: flex;
   ${(props) => settings.direction[props.direction]}
@@ -22,9 +23,9 @@ const StyledBox = styled.div<{
 `;
 
 export const Box = ({
-  size = 'medium',
-  variant = 'primary',
-  direction = 'row',
+  size = SIZE.MEDIUM,
+  variant = VARIANT.PRIMARY,
+  direction = DIRECTION.ROW,
   children,
   ...props
 }: TBoxConfig) => {

@@ -25,14 +25,13 @@ export default defineConfig({
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
-  base: '/',
   resolve: {
     alias: {
-      components: resolve('src/components'),
-      hooks: resolve('src/hooks'),
-      'custom-types': resolve('src/types'),
-      enums: resolve('src/enums'),
-      mock: resolve('src/mock'),
+      '@components': resolve('src/components'),
+      '@hooks': resolve('src/hooks'),
+      '@custom-types': resolve('src/types'),
+      '@enums': resolve('src/enums'),
+      '@mock': resolve('src/mock'),
     },
   },
   build: {

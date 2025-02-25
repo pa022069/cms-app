@@ -1,4 +1,5 @@
 import { css, RuleSet } from 'styled-components';
+import { SIZE, VARIANT, DIRECTION } from './enums';
 
 type TSettings = {
   [key: string]: {
@@ -8,35 +9,35 @@ type TSettings = {
 
 export const settings: TSettings = {
   size: {
-    medium: css`
+    [SIZE.MEDIUM]: css`
       font-size: 16px;
       padding: 8px 16px;
     `,
-    small: css`
+    [SIZE.SMALL]: css`
       font-size: 12px;
       padding: 4px 8px;
     `,
-    large: css`
+    [SIZE.LARGE]: css`
       font-size: 20px;
       padding: 12px 24px;
     `,
   },
   variant: {
-    primary: css`
+    [VARIANT.PRIMARY]: css`
       background-color: #007bff;
       color: white;
       &:hover {
         background-color: #0056b3;
       }
     `,
-    secondary: css`
+    [VARIANT.SECONDARY]: css`
       background-color: #6c757d;
       color: white;
       &:hover {
         background-color: #5a6268;
       }
     `,
-    danger: css`
+    [VARIANT.DANGER]: css`
       background-color: #dc3545;
       color: white;
       &:hover {
@@ -45,10 +46,10 @@ export const settings: TSettings = {
     `,
   },
   direction: {
-    row: css`
+    [DIRECTION.ROW]: css`
       flex-direction: row;
     `,
-    column: css`
+    [DIRECTION.COLUMN]: css`
       flex-direction: column;
     `,
   },
