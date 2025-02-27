@@ -25,15 +25,6 @@ export default defineConfig({
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
-  resolve: {
-    alias: {
-      '@components': resolve('src/components'),
-      '@hooks': resolve('src/hooks'),
-      '@custom-types': resolve('src/types'),
-      '@enums': resolve('src/enums'),
-      '@mock': resolve('src/mock'),
-    },
-  },
   build: {
     outDir: '../../dist/apps/cms',
     emptyOutDir: true,
