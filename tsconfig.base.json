@@ -15,9 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@libs-components/Button": ["libs/components/Button/src/index.ts"],
       "@libs-components/Box": ["libs/components/Box/src/index.ts"],
-      "@libs-cores/ui-register": ["libs/cores/ui-register/src/index.ts"]
+      "@libs-components/Button": ["libs/components/Button/src/index.ts"],
+      "@libs-components/Calendar": ["libs/components/Calendar/src/index.ts"],
+      "@libs-cores/ui-register": ["libs/cores/ui-register/src/index.ts"],
+      "@libs/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

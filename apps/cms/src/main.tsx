@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import Index from './app/Index';
+import Cms from './app/cms';
+import Home from './app/home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { registry } from '@libs-cores/ui-register';
 import { buttonConfig } from '@libs-components/Button';
 import { boxConfig } from '@libs-components/Box';
@@ -15,6 +17,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <Index />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/cms" element={<Cms />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>
 );

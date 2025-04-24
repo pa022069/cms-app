@@ -1,11 +1,11 @@
 import Button from './Button';
-import { settings } from './setting';
+import { variants } from './variants';
 
 const getEnums = (key: string) => {
   return {
     [key]: {
       type: 'string',
-      enum: !settings[key] ? [] : Object.keys(settings[key]),
+      enum: !variants[key] ? [] : Object.keys(variants[key]),
     },
   };
 };

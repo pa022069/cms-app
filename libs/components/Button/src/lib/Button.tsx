@@ -1,41 +1,41 @@
-import styled from 'styled-components';
-import { settings } from './setting';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@libs/utils';
 import { SIZE, VARIANT } from './enums';
+import { variants, baseStyles } from './variants';
 
-export type TButtonConfig = {
-  size?: SIZE;
-  variant?: VARIANT;
+const buttonVariants = cva(
+  baseStyles,
+  {
+    variants,
+    defaultVariants: {
+      variant: VARIANT.PRIMARY,
+      size: SIZE.MEDIUM,
+    },
+  }
+);
+
+export type TButtonConfig = VariantProps<typeof buttonVariants> & {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
+  children?: React.ReactNode;
   [key: string]: any;
 };
-
-const StyledButton = styled.button<{
-  variant: VARIANT;
-  size: SIZE;
-}>`
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  ${(props) => settings.variant[props.variant]}
-  ${(props) => settings.size[props.size]}
-`;
 
 export const Button = ({
   size = SIZE.MEDIUM,
   variant = VARIANT.PRIMARY,
+  className,
   children,
   ...props
 }: TButtonConfig) => {
   return (
-    <div>
-      <StyledButton variant={variant} size={size} {...props}>
-        {children}
-      </StyledButton>
-    </div>
+    <button
+      className={cn(buttonVariants({ variant, size }), className)}
+      {...props}
+    >
+      {children}
+    </button>
   );
 };
 

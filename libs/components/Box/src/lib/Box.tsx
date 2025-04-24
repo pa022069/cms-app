@@ -1,39 +1,40 @@
-import styled from 'styled-components';
-import { settings } from './setting';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@libs/utils';
 import { SIZE, VARIANT, DIRECTION } from './enums';
+import { variants, baseStyles } from './variants';
 
-export type TBoxConfig = {
-  size?: SIZE;
-  variant?: VARIANT;
-  direction?: DIRECTION;
+const boxVariants = cva(
+  baseStyles,
+  {
+    variants,
+    defaultVariants: {
+      variant: VARIANT.PRIMARY,
+      size: SIZE.MEDIUM,
+      direction: DIRECTION.ROW,
+    },
+  }
+);
+
+export type TBoxConfig = VariantProps<typeof boxVariants> & {
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
 };
 
-const StyledBox = styled.div<{
-  variant: VARIANT;
-  size: SIZE;
-  direction: DIRECTION;
-}>`
-  display: flex;
-  ${(props) => settings.direction[props.direction]}
-  ${(props) => settings.variant[props.variant]}
-  ${(props) => settings.size[props.size]}
-`;
-
 export const Box = ({
   size = SIZE.MEDIUM,
   variant = VARIANT.PRIMARY,
   direction = DIRECTION.ROW,
+  className,
   children,
   ...props
 }: TBoxConfig) => {
   return (
-    <div>
-      <StyledBox variant={variant} size={size} direction={direction} {...props}>
-        {children}
-      </StyledBox>
+    <div
+      className={cn(boxVariants({ variant, size, direction }), className)}
+      {...props}
+    >
+      {children}
     </div>
   );
 };
