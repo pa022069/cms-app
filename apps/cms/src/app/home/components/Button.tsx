@@ -7,7 +7,7 @@ type ButtonState = {
   text: string;
 };
 
-type ButtonAction = 
+type ButtonAction =
   | { type: 'SET_SIZE'; payload: SIZE }
   | { type: 'SET_VARIANT'; payload: VARIANT }
   | { type: 'SET_TEXT'; payload: string };
@@ -36,21 +36,18 @@ export default function Button() {
 
   return (
     <div className="p-4 flex gap-4 border border-gray-300">
-      <div className='flex-none w-[500px]'>
-        <p className='text-lg font-bold'>Button</p>
-        <div className='flex justify-center items-center p-4'>
-          <CoreButton
-            variant={state.variant}
-            size={state.size}
-          >
+      <div className="flex-none w-[500px]">
+        <p className="text-lg font-bold">Button</p>
+        <div className="flex justify-center items-center p-4">
+          <CoreButton variant={state.variant} size={state.size}>
             {state.text}
           </CoreButton>
         </div>
       </div>
 
-      <div className='flex-1 flex flex-col gap-4'>
+      <div className="flex-1 flex flex-col gap-4">
         <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <p className='flex-none w-[100px]'>Size：</p>
+          <p className="flex-none w-[100px]">Size：</p>
           <select
             className="mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             value={state.size}
@@ -70,7 +67,7 @@ export default function Button() {
         </label>
 
         <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <p className='flex-none w-[100px]'>Variant：</p>
+          <p className="flex-none w-[100px]">Variant：</p>
           <select
             className="mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             value={state.variant}
@@ -90,15 +87,17 @@ export default function Button() {
         </label>
 
         <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <p className='flex-none w-[100px]'>Button Text：</p>
+          <p className="flex-none w-[100px]">Button Text：</p>
           <input
             type="text"
             className="mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             value={state.text}
-            onChange={(e) => dispatch({ type: 'SET_TEXT', payload: e.target.value })}
+            onChange={(e) =>
+              dispatch({ type: 'SET_TEXT', payload: e.target.value })
+            }
           />
         </label>
       </div>
     </div>
   );
-} 
+}
