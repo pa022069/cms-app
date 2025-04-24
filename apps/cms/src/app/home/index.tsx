@@ -1,9 +1,9 @@
-import Button from '@libs-components/Button';
+import ButtonComponent from './components/Button';
 
 export default function Home() {
   return (
     <div>
-      <Button>Click me</Button>
+      <ButtonComponent />
     </div>
   );
 }

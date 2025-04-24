@@ -14,24 +14,27 @@ const buttonVariants = cva(
   }
 );
 
-export type TButtonConfig = VariantProps<typeof buttonVariants> & {
+type ButtonBaseProps = {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
   children?: React.ReactNode;
-  [key: string]: any;
 };
+
+export type TButtonConfig = VariantProps<typeof buttonVariants> & ButtonBaseProps;
 
 export const Button = ({
   size = SIZE.MEDIUM,
   variant = VARIANT.PRIMARY,
   className,
   children,
+  onClick,
   ...props
 }: TButtonConfig) => {
   return (
     <button
       className={cn(buttonVariants({ variant, size }), className)}
+      onClick={onClick}
       {...props}
     >
       {children}

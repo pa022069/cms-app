@@ -18,6 +18,7 @@ export const baseStyles = [
   'focus-visible:ring-offset-2',
   'disabled:pointer-events-none',
   'disabled:opacity-50',
+  'w-fit'
 ].join(' ');
 
 export const variants: TVariants = {
