@@ -9,42 +9,42 @@ export const SPACING = {
 };
 
 export const GAP = {
-  XS: 'gap-1',
-  SM: 'gap-2',
-  MD: 'gap-3',
-  BASE: 'gap-4',
-  LG: 'gap-5',
-  XL: 'gap-6',
-  '2XL': 'gap-7',
+  XS: 'gap-[0.25em]',
+  SM: 'gap-[0.5em]',
+  MD: 'gap-[0.75em]',
+  BASE: 'gap-[1em]',
+  LG: 'gap-[1.25em]',
+  XL: 'gap-[1.5em]',
+  '2XL': 'gap-[1.75em]',
 };
 
 export const MARGIN = {
-  XS: 'm-1',
-  SM: 'm-2',
-  MD: 'm-3',
-  BASE: 'm-4',
-  LG: 'm-5',
-  XL: 'm-6',
-  '2XL': 'm-7',
+  XS: 'm-[0.25em]',
+  SM: 'm-[0.5em]',
+  MD: 'm-[0.75em]',
+  BASE: 'm-[1em]',
+  LG: 'm-[1.25em]',
+  XL: 'm-[1.5em]',
+  '2XL': 'm-[1.75em]',
 };
 
 export const PADDING = {
-  XS: 'p-1',
-  SM: 'p-2',
-  MD: 'p-3',
-  BASE: 'p-4',
-  LG: 'p-5',
-  XL: 'p-6',
-  '2XL': 'p-7',
+  XS: 'p-[0.25em]',
+  SM: 'p-[0.5em]',
+  MD: 'p-[0.75em]',
+  BASE: 'p-[1em]',
+  LG: 'p-[1.25em]',
+  XL: 'p-[1.5em]',
+  '2XL': 'p-[1.75em]',
 };
 
 export const FONTSIZE = {
-  XS: 'text-xs',
-  SM: 'text-sm',
-  BASE: 'text-base',
-  LG: 'text-lg',
-  XL: 'text-xl',
-  '2XL': 'text-2xl',
+  XS: 'text-[0.75em]',
+  SM: 'text-[0.875em]',
+  BASE: 'text-[1em]',
+  LG: 'text-[1.125em]',
+  XL: 'text-[1.25em]',
+  '2XL': 'text-[1.5em]',
 };
 
 export const COLOR = {
