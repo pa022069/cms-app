@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { DateType } from '../enums';
 
 type CalendarContextType = {
@@ -25,7 +25,7 @@ export const CalendarProvider = ({
   children: React.ReactNode;
   current?: string;
 }) => {
-  const today = new Date(current || Date.now());
+  const [today, setToday] = useState(new Date(current || Date.now()));
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [markedDate, setMarkedDate] = useState('');
@@ -52,6 +52,15 @@ export const CalendarProvider = ({
       return newMonth;
     });
   };
+
+  useEffect(() => {
+    if (!current) return;
+    const date = new Date(current);
+    setToday(date);
+    setCurrentYear(date.getFullYear());
+    setCurrentMonth(date.getMonth());
+    setMarkedDate(current);
+  }, [current]);
 
   const nextYear = () => setCurrentYear((year) => year + 1);
   const prevYear = () => setCurrentYear((year) => year - 1);
